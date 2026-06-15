@@ -5,3 +5,5 @@
 {"ts":"2026-06-15T12:25:09Z","event":"SessionStart","sid":"ab66b203-73d1-4b36-87bb-2abaa6d6702f","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-15T12:26:01Z","event":"SessionEnd","sid":"924db9ab-fe8f-468d-a26c-c9ba80b77538","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":null,"reason":"prompt_input_exit"}
 {"ts":"2026-06-15T12:26:11Z","event":"SessionStart","sid":"924db9ab-fe8f-468d-a26c-c9ba80b77538","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-15T13:29:34Z","event":"SessionEnd","sid":"924db9ab-fe8f-468d-a26c-c9ba80b77538","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":null,"reason":"prompt_input_exit"}
+{"ts":"2026-06-15T13:43:34Z","event":"SessionStart","sid":"924db9ab-fe8f-468d-a26c-c9ba80b77538","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":"resume","reason":null}
