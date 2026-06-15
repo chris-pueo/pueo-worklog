@@ -1,0 +1,5 @@
+# Keep shell scripts LF so they run on Linux regardless of any machine's autocrlf.
+* text=auto
+*.sh   text eol=lf
+*.ps1  text eol=crlf
+*.ndjson text eol=lf
