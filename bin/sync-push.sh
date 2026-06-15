@@ -11,10 +11,14 @@ exec 9>"$repo/.sync.lock" 2>/dev/null || exit 0
 command -v flock >/dev/null 2>&1 && { flock -n 9 || exit 0; }
 
 git pull --rebase --autostash --quiet 2>/dev/null || true
-git add raw/ 2>/dev/null || true
+
+# refresh the worklog instructions in ~/.claude/CLAUDE.md from the (just-pulled) repo
+bash "$repo/bin/apply-instructions.sh" 2>/dev/null || true
+
+git add raw/ narrative/ 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
-  git commit -m "worklog: $(hostname -s 2>/dev/null || hostname) clock sync $(date -u +%Y-%m-%dT%H:%MZ)" --quiet 2>/dev/null || true
+  git commit -m "worklog: $(hostname -s 2>/dev/null || hostname) sync $(date -u +%Y-%m-%dT%H:%MZ)" --quiet 2>/dev/null || true
   git push --quiet 2>/dev/null || true
 fi
 exit 0

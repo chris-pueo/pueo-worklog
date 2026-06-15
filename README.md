@@ -11,10 +11,17 @@ feeding Unanet timecards. Personal (`chris-pueo/pueo-worklog`), **private**, jus
 
 ```
 raw/                <machine>-YYYY-MM.ndjson   append-only session clock (the "when")
+narrative/          <machine>-YYYY-MM.md       per-session "what" lines from non-OneDrive boxes (Linux)
 rollups/            YYYY-MM.md                 generated Unanet-ready daily rollups (canonical, versioned)
-bin/                hooks + Linux sync scripts
+claude/             CLAUDE.worklog.md          worklog instructions installed into ~/.claude/CLAUDE.md on Linux
+bin/                hooks, Linux installer/cron, instruction installer
 INSTALL-LINUX.md    how to wire a remote Linux box into this repo
 ```
+
+On Linux, `bin/install-linux.sh` also installs the worklog instructions (charge codes +
+ritual) into `~/.claude/CLAUDE.md` as a managed block, and the hourly cron keeps it fresh
+from `claude/CLAUDE.worklog.md`. Linux sessions log per-session lines to `narrative/`
+(OneDrive isn't mounted there); Windows `/timecard` reads `raw/` + `narrative/` to build rollups.
 
 ## How it flows
 

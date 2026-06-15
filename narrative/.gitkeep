@@ -1,0 +1,2 @@
+# Per-session narrative lines from machines without OneDrive (e.g. Linux) land here as
+# <host>-YYYY-MM.md. Machine-namespaced => no merge conflicts. Windows /timecard reads these.

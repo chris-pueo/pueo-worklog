@@ -52,4 +52,8 @@ cronline="$sched $repo/bin/sync-push.sh >/dev/null 2>&1"
 echo "Installed cron ('$sched'):"
 crontab -l | grep sync-push.sh
 
-echo "DONE. New Claude Code sessions on $(hostname -s) will log clock; cron pushes on '$sched'."
+# 4. Install/refresh worklog instructions into ~/.claude/CLAUDE.md
+mkdir -p "$repo/narrative"
+bash "$repo/bin/apply-instructions.sh" && echo "Installed worklog instructions into ~/.claude/CLAUDE.md (managed block)."
+
+echo "DONE. New Claude Code sessions on $(hostname -s) log clock + follow the worklog ritual; cron pushes on '$sched'."

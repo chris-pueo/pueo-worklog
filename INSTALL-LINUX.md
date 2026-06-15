@@ -16,15 +16,17 @@ bash ~/git/pueo-worklog/bin/install-linux.sh         # default: hourly push
 # bash ~/git/pueo-worklog/bin/install-linux.sh 30    # or pass minutes for a different cadence
 ```
 That merges the SessionStart/SessionEnd hook into `~/.claude/settings.json` (backing it
-up first) and installs a crontab line running `bin/sync-push.sh`.
+up first), installs a crontab line running `bin/sync-push.sh`, and injects the worklog
+instructions (charge codes + ritual) into `~/.claude/CLAUDE.md` as a managed block.
 
 ## Verify
 ```bash
-jq '.hooks | keys' ~/.claude/settings.json     # -> ["SessionEnd","SessionStart"]
-crontab -l | grep sync-push                     # -> the "0 * * * *" hourly line
+jq '.hooks | keys' ~/.claude/settings.json       # -> ["SessionEnd","SessionStart"]
+crontab -l | grep sync-push                       # -> the "0 * * * *" hourly line
+grep -c 'BEGIN pueo-worklog' ~/.claude/CLAUDE.md  # -> 1 (instructions installed)
 # start + exit a Claude Code session, then:
-ls ~/git/pueo-worklog/raw/                       # -> <host>-YYYY-MM.ndjson
-bash ~/git/pueo-worklog/bin/sync-push.sh         # manual push; then check GitHub
+ls ~/git/pueo-worklog/raw/                         # -> <host>-YYYY-MM.ndjson
+bash ~/git/pueo-worklog/bin/sync-push.sh           # manual push; then check GitHub
 ```
 
 ## Notes
