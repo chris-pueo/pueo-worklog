@@ -12,7 +12,8 @@ pushes it here, so the Windows `/timecard` run sees that machine's work too.
 ## One-shot install
 ```bash
 # (clone first if you haven't — the installer will also do it)
-bash ~/git/pueo-worklog/bin/install-linux.sh 30      # 30 = push every 30 min
+bash ~/git/pueo-worklog/bin/install-linux.sh         # default: hourly push
+# bash ~/git/pueo-worklog/bin/install-linux.sh 30    # or pass minutes for a different cadence
 ```
 That merges the SessionStart/SessionEnd hook into `~/.claude/settings.json` (backing it
 up first) and installs a crontab line running `bin/sync-push.sh`.
@@ -20,7 +21,7 @@ up first) and installs a crontab line running `bin/sync-push.sh`.
 ## Verify
 ```bash
 jq '.hooks | keys' ~/.claude/settings.json     # -> ["SessionEnd","SessionStart"]
-crontab -l | grep sync-push                     # -> the */30 line
+crontab -l | grep sync-push                     # -> the "0 * * * *" hourly line
 # start + exit a Claude Code session, then:
 ls ~/git/pueo-worklog/raw/                       # -> <host>-YYYY-MM.ndjson
 bash ~/git/pueo-worklog/bin/sync-push.sh         # manual push; then check GitHub

@@ -7,10 +7,10 @@
 #
 # Does: clone repo if missing -> chmod scripts -> merge SessionStart/SessionEnd
 # hook into ~/.claude/settings.json (jq) -> install a cron job to push the clock.
-# Default push interval: 30 min. Requires: git, jq.
+# Default push interval: 60 min (hourly). Requires: git, jq.
 
 set -u
-interval="${1:-30}"
+interval="${1:-60}"
 repo="$HOME/git/pueo-worklog"
 
 command -v git >/dev/null 2>&1 || { echo "ERROR: git not found"; exit 1; }
@@ -40,9 +40,16 @@ echo "Updated $settings (backup kept). Hooks:"
 jq '.hooks | keys' "$settings"
 
 # 3. Install cron push (idempotent: drop any prior line first)
-cronline="*/$interval * * * * $repo/bin/sync-push.sh >/dev/null 2>&1"
+# Build an idiomatic schedule: whole-hour multiples -> "0 [*/h] * * *"; else "*/m * * * *".
+if [ "$interval" -ge 60 ] && [ $((interval % 60)) -eq 0 ]; then
+  hours=$((interval / 60))
+  if [ "$hours" -eq 1 ]; then sched="0 * * * *"; else sched="0 */$hours * * *"; fi
+else
+  sched="*/$interval * * * *"
+fi
+cronline="$sched $repo/bin/sync-push.sh >/dev/null 2>&1"
 ( crontab -l 2>/dev/null | grep -v 'pueo-worklog/bin/sync-push.sh' ; echo "$cronline" ) | crontab -
-echo "Installed cron (every ${interval}m):"
+echo "Installed cron ('$sched'):"
 crontab -l | grep sync-push.sh
 
-echo "DONE. New Claude Code sessions on $(hostname -s) will log clock; cron pushes every ${interval}m."
+echo "DONE. New Claude Code sessions on $(hostname -s) will log clock; cron pushes on '$sched'."
