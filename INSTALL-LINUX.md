@@ -1,0 +1,35 @@
+# Wiring a remote Linux box into pueo-worklog
+
+Goal: Claude Code sessions on a Linux machine auto-log their wall-clock and a cron job
+pushes it here, so the Windows `/timecard` run sees that machine's work too.
+
+## Prerequisites
+- `git` and `jq` installed.
+- Git auth to `github.com/chris-pueo/pueo-worklog` working (SSH key or PAT / credential
+  helper) — test with: `git clone https://github.com/chris-pueo/pueo-worklog.git ~/git/pueo-worklog`
+- Claude Code installed (it reads `~/.claude/settings.json`).
+
+## One-shot install
+```bash
+# (clone first if you haven't — the installer will also do it)
+bash ~/git/pueo-worklog/bin/install-linux.sh 30      # 30 = push every 30 min
+```
+That merges the SessionStart/SessionEnd hook into `~/.claude/settings.json` (backing it
+up first) and installs a crontab line running `bin/sync-push.sh`.
+
+## Verify
+```bash
+jq '.hooks | keys' ~/.claude/settings.json     # -> ["SessionEnd","SessionStart"]
+crontab -l | grep sync-push                     # -> the */30 line
+# start + exit a Claude Code session, then:
+ls ~/git/pueo-worklog/raw/                       # -> <host>-YYYY-MM.ndjson
+bash ~/git/pueo-worklog/bin/sync-push.sh         # manual push; then check GitHub
+```
+
+## Notes
+- Raw files are **machine-namespaced** (`<host>-YYYY-MM.ndjson`) so machines never
+  conflict on merge.
+- The hook never blocks a session (swallows errors, exits 0). If the repo dir is missing
+  it falls back to `~/.claude/worklog/`.
+- To remove: delete the `.hooks` block from `~/.claude/settings.json` and
+  `crontab -e` out the sync line.
