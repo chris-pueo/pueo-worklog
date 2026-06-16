@@ -6,3 +6,9 @@
 {"ts":"2026-06-16T12:30:03Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
 {"ts":"2026-06-16T12:52:20Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-16T12:52:50Z","event":"SessionStart","sid":"a9c40f67-cf90-45df-bd4b-17e8ea055482","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
+{"ts":"2026-06-16T13:15:21Z","event":"SessionStart","sid":"8452c485-6a6c-4af6-b62b-0d055709715f","host":"linprodans001","cwd":"/home/cgarrett/TESIEMS","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
+{"ts":"2026-06-16T13:15:24Z","event":"SessionEnd","sid":"8452c485-6a6c-4af6-b62b-0d055709715f","host":"linprodans001","cwd":"/home/cgarrett/TESIEMS","model":null,"title":null,"source":null,"reason":"prompt_input_exit"}
+{"ts":"2026-06-16T13:16:27Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-16T13:30:17Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-16T13:31:01Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-16T13:37:14Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
