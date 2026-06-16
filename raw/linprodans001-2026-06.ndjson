@@ -12,3 +12,7 @@
 {"ts":"2026-06-16T13:30:17Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-16T13:31:01Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
 {"ts":"2026-06-16T13:37:14Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-16T14:10:00Z","event":"SessionEnd","sid":"a9c40f67-cf90-45df-bd4b-17e8ea055482","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure/automation/terraform","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-16T14:17:58Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-16T14:29:40Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-16T14:56:04Z","event":"SessionStart","sid":"8e22dc47-4177-4744-8a62-f476f36c4e7e","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
