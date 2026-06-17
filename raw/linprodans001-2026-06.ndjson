@@ -33,3 +33,4 @@
 {"ts":"2026-06-17T04:00:43Z","event":"SessionStart","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"clear","reason":null}
 {"ts":"2026-06-17T05:44:31Z","event":"SessionEnd","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":"other"}
 {"ts":"2026-06-17T05:44:31Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-17T10:57:28Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
