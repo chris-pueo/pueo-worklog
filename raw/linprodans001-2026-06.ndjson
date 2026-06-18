@@ -58,3 +58,4 @@
 {"ts":"2026-06-18T17:28:17Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
 {"ts":"2026-06-18T18:50:51Z","event":"SessionStart","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-18T18:51:19Z","event":"SessionStart","sid":"ff6aa020-51ad-4ac0-8c51-783f3a96c532","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-18T20:51:10Z","event":"SessionEnd","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":"other"}
