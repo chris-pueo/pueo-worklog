@@ -55,3 +55,4 @@
 {"ts":"2026-06-18T00:20:42Z","event":"SessionStart","sid":"ff6aa020-51ad-4ac0-8c51-783f3a96c532","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
 {"ts":"2026-06-18T00:39:57Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":"claude-opus-4-8","title":null,"source":"compact","reason":null}
 {"ts":"2026-06-18T16:19:44Z","event":"SessionEnd","sid":"ff6aa020-51ad-4ac0-8c51-783f3a96c532","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure/docs","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-18T17:28:17Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
