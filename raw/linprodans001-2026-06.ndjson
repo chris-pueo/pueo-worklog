@@ -52,3 +52,5 @@
 {"ts":"2026-06-17T16:12:13Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-17T16:22:01Z","event":"SessionStart","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-17T23:42:15Z","event":"SessionEnd","sid":"03ddd4a3-3695-4524-9ccd-93704bbdc834","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":"prompt_input_exit"}
+{"ts":"2026-06-18T00:20:42Z","event":"SessionStart","sid":"ff6aa020-51ad-4ac0-8c51-783f3a96c532","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
+{"ts":"2026-06-18T00:39:57Z","event":"SessionStart","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":"claude-opus-4-8","title":null,"source":"compact","reason":null}
