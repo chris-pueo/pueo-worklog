@@ -73,3 +73,4 @@
 {"ts":"2026-06-19T14:51:20Z","event":"SessionStart","sid":"1e5d8213-91d0-4332-962b-220bd2d02baf","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
 {"ts":"2026-06-19T14:51:36Z","event":"SessionEnd","sid":"1e5d8213-91d0-4332-962b-220bd2d02baf","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":"prompt_input_exit"}
 {"ts":"2026-06-19T14:51:45Z","event":"SessionStart","sid":"7002b09a-b96b-4671-b803-f07c6b04e605","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
+{"ts":"2026-06-19T15:52:04Z","event":"SessionStart","sid":"7002b09a-b96b-4671-b803-f07c6b04e605","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
