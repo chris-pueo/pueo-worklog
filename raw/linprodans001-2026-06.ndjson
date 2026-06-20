@@ -93,3 +93,4 @@
 {"ts":"2026-06-20T02:38:23Z","event":"SessionStart","sid":"7d6a3a86-a566-4716-a31a-baebd47d6279","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":"resume","reason":null}
 {"ts":"2026-06-20T02:47:40Z","event":"SessionEnd","sid":"37f959d0-970f-4a8a-bd17-8591f213a844","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":"other"}
 {"ts":"2026-06-20T02:54:55Z","event":"SessionEnd","sid":"573e859c-0cb3-4804-91d5-f0e2cc60cb59","host":"linprodans001","cwd":"/home/cgarrett/tesiems","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-20T04:25:26Z","event":"SessionEnd","sid":"7d6a3a86-a566-4716-a31a-baebd47d6279","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure/docker-swarm","model":null,"title":null,"source":null,"reason":"other"}
