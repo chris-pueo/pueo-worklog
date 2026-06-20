@@ -25,10 +25,13 @@ from `claude/CLAUDE.worklog.md`. Linux sessions log per-session lines to `narrat
 
 ## How it flows
 
-1. **Capture (per machine, automatic):** a Claude Code `SessionStart`/`SessionEnd` hook
-   stamps wall-clock to `raw/<machine>-YYYY-MM.ndjson`. Machine-namespaced => no merge
-   conflicts. Windows hook: `~/.claude/worklog/claude-worklog-hook.ps1` (installed in
-   `~/.claude/settings.json`). Linux hook: `bin/claude-worklog-hook.sh`.
+1. **Capture (per machine, automatic):** a Claude Code `SessionStart`/`SessionEnd` **+
+   `UserPromptSubmit`** hook stamps wall-clock to `raw/<machine>-YYYY-MM.ndjson`.
+   Machine-namespaced => no merge conflicts. SessionStart/End mark boundaries;
+   `UserPromptSubmit` is a per-prompt **activity heartbeat** — the signal `/timecard`
+   clusters into active time (lifecycle spans alone over/under-count). Windows hook:
+   `~/.claude/worklog/claude-worklog-hook.ps1`; Linux hook: `bin/claude-worklog-hook.sh`
+   (both installed into `~/.claude/settings.json`; see `INSTALL-LINUX.md`).
 2. **Sync:** Linux pushes via cron (`bin/sync-push.sh`). Windows pushes when `/timecard` runs.
 3. **Consolidate:** the `/timecard` Claude skill pulls this repo, merges every machine's
    clock + the per-session narrative lines, and writes the Unanet-ready rollups to BOTH

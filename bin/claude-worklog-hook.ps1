@@ -1,8 +1,12 @@
 # claude-worklog-hook.ps1 — REFERENCE COPY (the live one is ~/.claude/worklog/claude-worklog-hook.ps1)
-# Windows SessionStart/SessionEnd hook for the Pueo worklog system. Appends a
-# deterministic wall-clock record to raw/<COMPUTERNAME>-YYYY-MM.ndjson in this repo
-# (fallback ~/.claude/worklog). Fail-safe: swallows all errors, always exits 0.
-# See README.md. Keep this copy in sync with the installed one if you edit either.
+# Windows SessionStart/SessionEnd + UserPromptSubmit hook for the Pueo worklog system.
+# SessionStart/End mark boundaries; UserPromptSubmit fires once per prompt as an ACTIVITY
+# HEARTBEAT (the signal /timecard clusters into active time). Event-generic via
+# .hook_event_name; appends a wall-clock record to raw/<COMPUTERNAME>-YYYY-MM.ndjson in this
+# repo (fallback ~/.claude/worklog). stdout-silent (a UserPromptSubmit hook's stdout is
+# injected into the model context on exit 0 — writes only to the ndjson); .prompt never logged.
+# Fail-safe: swallows all errors, always exits 0. See README.md / INSTALL-LINUX.md.
+# Keep this copy in sync with the installed one if you edit either.
 
 try {
     $raw = [Console]::In.ReadToEnd()

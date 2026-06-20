@@ -5,8 +5,9 @@
 #
 #   bash ~/git/pueo-worklog/bin/install-linux.sh [push_interval_minutes]
 #
-# Does: clone repo if missing -> chmod scripts -> merge SessionStart/SessionEnd
-# hook into ~/.claude/settings.json (jq) -> install a cron job to push the clock.
+# Does: clone repo if missing -> chmod scripts -> merge SessionStart/SessionEnd +
+# UserPromptSubmit (activity heartbeat) hooks into ~/.claude/settings.json (jq) ->
+# install a cron job to push the clock. Idempotent: re-run to upgrade existing installs.
 # Default push interval: 60 min (hourly). Requires: git, jq.
 
 set -u
@@ -33,8 +34,9 @@ hookcmd="bash $repo/bin/claude-worklog-hook.sh"
 tmp="$(mktemp)"
 jq --arg cmd "$hookcmd" '
   .hooks = (.hooks // {}) |
-  .hooks.SessionStart = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ] |
-  .hooks.SessionEnd   = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ]
+  .hooks.SessionStart     = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ] |
+  .hooks.SessionEnd       = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ] |
+  .hooks.UserPromptSubmit = [ { hooks: [ { type: "command", command: $cmd, timeout: 10 } ] } ]
 ' "$settings" > "$tmp" && mv "$tmp" "$settings"
 echo "Updated $settings (backup kept). Hooks:"
 jq '.hooks | keys' "$settings"

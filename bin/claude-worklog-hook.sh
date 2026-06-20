@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-# claude-worklog-hook.sh — Linux SessionStart/SessionEnd hook (mirror of the .ps1).
+# claude-worklog-hook.sh — Linux SessionStart/SessionEnd + UserPromptSubmit hook
+# (mirror of the .ps1). SessionStart/End mark session boundaries; UserPromptSubmit fires
+# once per prompt as an ACTIVITY HEARTBEAT — the signal /timecard clusters into active time.
+# Event-generic (records .hook_event_name), so all three land in the same ndjson.
 # Appends a deterministic wall-clock record to raw/<host>-YYYY-MM.ndjson in the repo
 # (fallback ~/.claude/worklog). Reads the hook payload JSON on stdin.
+# stdout-silent (a UserPromptSubmit hook's stdout is injected into the model context on
+# exit 0 — this writes ONLY to the ndjson). .prompt is never read (no prompt text logged).
 # Fail-safe: swallows all errors, always exits 0 — never disrupt a Claude session.
 # Requires: jq (recommended). Without jq it stores the raw payload defensively.
 
