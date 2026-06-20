@@ -32,7 +32,9 @@ from `claude/CLAUDE.worklog.md`. Linux sessions log per-session lines to `narrat
    clusters into active time (lifecycle spans alone over/under-count). Windows hook:
    `~/.claude/worklog/claude-worklog-hook.ps1`; Linux hook: `bin/claude-worklog-hook.sh`
    (both installed into `~/.claude/settings.json`; see `INSTALL-LINUX.md`).
-2. **Sync:** Linux pushes via cron (`bin/sync-push.sh`). Windows pushes when `/timecard` runs.
+2. **Sync (hourly, per machine):** Windows = the `ClaudeWorklogPulse` scheduled task ->
+   `bin/pulse.ps1` (pull --rebase, then commit+push `raw/` when it changed); Linux = cron ->
+   `bin/sync-push.sh` (same, under flock). `/timecard` also pushes at the end of a run.
 3. **Consolidate:** the `/timecard` Claude skill pulls this repo, merges every machine's
    clock + the per-session narrative lines, and writes the Unanet-ready rollups to BOTH
    `rollups/YYYY-MM.md` (here) and the human-read copy in

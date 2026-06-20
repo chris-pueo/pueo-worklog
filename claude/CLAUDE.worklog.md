@@ -1,8 +1,10 @@
 ## Worklog / timecard — record work as you go (Linux; managed by pueo-worklog)
 
-Time + activity are logged so timecards write themselves. A SessionStart/SessionEnd hook
-auto-captures wall-clock to `~/git/pueo-worklog/raw/<host>-YYYY-MM.ndjson` (cron pushes it) —
-you do nothing for the clock.
+Time + activity are logged so timecards write themselves. A SessionStart/SessionEnd +
+UserPromptSubmit (per-prompt activity heartbeat) hook auto-captures wall-clock to
+`~/git/pueo-worklog/raw/<host>-YYYY-MM.ndjson` (cron pushes it) — you do nothing for the clock.
+(Heartbeat added 2026-06-20; if `jq '.hooks|keys' ~/.claude/settings.json` lacks
+UserPromptSubmit, re-run `bash ~/git/pueo-worklog/bin/install-linux.sh`.)
 
 **At the end of a substantive session, append ONE line** for the work done, under today's
 date heading (create the heading if absent), to THIS machine's narrative file in the repo:
