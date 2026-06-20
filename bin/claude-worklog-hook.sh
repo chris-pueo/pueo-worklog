@@ -28,7 +28,10 @@
       '{ts:$ts, event:.hook_event_name, sid:.session_id, host:$host, cwd:.cwd, model:.model, title:.session_title, source:.source, reason:.reason}' \
       >> "$file" 2>/dev/null || true
   else
-    printf '{"ts":"%s","host":"%s","raw":%s}\n' "$now" "$host" "$(printf '%s' "$payload" | tr -d '\n')" >> "$file" 2>/dev/null || true
+    # jq absent: install-linux.sh mandates jq, so this should not happen. Write a LOUD,
+    # clusterable sentinel (greppable, valid JSON WITH an `event`) rather than an event-less
+    # {ts,host,raw} record that /timecard would silently drop — makes the gap visible in rollups.
+    printf '{"ts":"%s","event":"CAPTURE_ERROR_NO_JQ","host":"%s"}\n' "$now" "$host" >> "$file" 2>/dev/null || true
   fi
 } 2>/dev/null || true
 

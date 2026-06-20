@@ -18,7 +18,12 @@ bash "$repo/bin/apply-instructions.sh" 2>/dev/null || true
 git add raw/ narrative/ 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
-  git commit -m "worklog: $(hostname -s 2>/dev/null || hostname) sync $(date -u +%Y-%m-%dT%H:%MZ)" --quiet 2>/dev/null || true
-  git push --quiet 2>/dev/null || true
+  git -c user.name='Chris Garrett' -c user.email='chris@pueo.com' \
+      commit -m "worklog: $(hostname -s 2>/dev/null || hostname) sync $(date -u +%Y-%m-%dT%H:%MZ)" --quiet 2>/dev/null || true
+  # bounded push-retry: re-pull+rebase on a non-fast-forward, up to 3 times (self-heals races)
+  for i in 1 2 3; do
+    git push --quiet 2>/dev/null && break
+    git pull --rebase --autostash --quiet 2>/dev/null || true
+  done
 fi
 exit 0

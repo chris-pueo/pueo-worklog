@@ -14,14 +14,21 @@ raw/                <machine>-YYYY-MM.ndjson   append-only session clock (the "w
 narrative/          <machine>-YYYY-MM.md       per-session "what" lines from non-OneDrive boxes (Linux)
 rollups/            YYYY-MM.md                 generated Unanet-ready daily rollups (canonical, versioned)
 claude/             CLAUDE.worklog.md          worklog instructions installed into ~/.claude/CLAUDE.md on Linux
-bin/                hooks, Linux installer/cron, instruction installer
+bin/                hooks, Linux+Windows installers, cron/scheduled-task scripts, doctor health-check
 INSTALL-LINUX.md    how to wire a remote Linux box into this repo
+INSTALL-WINDOWS.md  how to wire a Windows box (hook + ClaudeWorklogPulse task) into this repo
 ```
 
 On Linux, `bin/install-linux.sh` also installs the worklog instructions (charge codes +
 ritual) into `~/.claude/CLAUDE.md` as a managed block, and the hourly cron keeps it fresh
 from `claude/CLAUDE.worklog.md`. Linux sessions log per-session lines to `narrative/`
 (OneDrive isn't mounted there); Windows `/timecard` reads `raw/` + `narrative/` to build rollups.
+
+On Windows, `bin/install-windows.ps1` wires the same three hooks — pointed **at** the repo
+`bin/claude-worklog-hook.ps1` so `git pull` auto-updates them (parity with Linux) — plus the
+hourly `ClaudeWorklogPulse` scheduled task. `bin/doctor.{ps1,sh}` is a read-only health check
+(per-host clock freshness, heartbeat-stream presence, push age, hook/task wiring); `/timecard`
+runs it at step 1.
 
 ## How it flows
 

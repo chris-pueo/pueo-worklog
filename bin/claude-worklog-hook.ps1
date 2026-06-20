@@ -28,8 +28,9 @@ try {
         source = $p.source; reason = $p.reason
     }
     $line = ($rec | ConvertTo-Json -Compress)
+    $enc  = New-Object System.Text.UTF8Encoding $false   # BOM-less; bare LF to match .gitattributes (*.ndjson eol=lf)
     for ($i = 0; $i -lt 3; $i++) {
-        try { Add-Content -Path $file -Value $line -Encoding utf8; break } catch { Start-Sleep -Milliseconds 40 }
+        try { [System.IO.File]::AppendAllText($file, $line + "`n", $enc); break } catch { Start-Sleep -Milliseconds 40 }
     }
 }
 catch { }
