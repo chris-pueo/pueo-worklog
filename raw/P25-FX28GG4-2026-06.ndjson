@@ -659,3 +659,6 @@
 {"ts":"2026-06-24T18:42:12Z","event":"UserPromptSubmit","sid":"87c2b018-c9bf-43e1-9e75-2507a1bb1eec","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\cto-budget-things","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-24T18:55:44Z","event":"UserPromptSubmit","sid":"87c2b018-c9bf-43e1-9e75-2507a1bb1eec","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\cto-budget-things","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-24T20:35:42Z","event":"SessionEnd","sid":"87c2b018-c9bf-43e1-9e75-2507a1bb1eec","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\cto-budget-things","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-25T00:44:20Z","event":"UserPromptSubmit","sid":"0ea95e24-75c1-4905-aeb2-b94d5d88ec94","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\jarvis","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-25T00:58:18Z","event":"UserPromptSubmit","sid":"0ea95e24-75c1-4905-aeb2-b94d5d88ec94","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\jarvis","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-25T01:19:15Z","event":"UserPromptSubmit","sid":"7f84e0a6-5b9f-4941-bee3-f5faa4f51480","host":"P25-FX28GG4","cwd":"C:\\Users\\ChrisGarrett\\git\\pueo-aws-cloud","model":null,"title":null,"source":null,"reason":null}
