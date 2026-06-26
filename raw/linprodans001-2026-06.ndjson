@@ -606,3 +606,5 @@
 {"ts":"2026-06-26T14:40:14Z","event":"UserPromptSubmit","sid":"c7b8278a-8922-4fc9-b3c0-dc6a5c2aba58","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-26T15:06:00Z","event":"UserPromptSubmit","sid":"c7b8278a-8922-4fc9-b3c0-dc6a5c2aba58","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-26T18:58:38Z","event":"SessionStart","sid":"b69f698a-559d-4459-8087-8623336c5238","host":"linprodans001","cwd":"/home/cgarrett/git/pueo-pulse","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
+{"ts":"2026-06-26T19:01:19Z","event":"UserPromptSubmit","sid":"b69f698a-559d-4459-8087-8623336c5238","host":"linprodans001","cwd":"/home/cgarrett/git/pueo-pulse","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-26T19:35:25Z","event":"UserPromptSubmit","sid":"b69f698a-559d-4459-8087-8623336c5238","host":"linprodans001","cwd":"/home/cgarrett/git/pueo-pulse","model":null,"title":null,"source":null,"reason":null}
