@@ -598,3 +598,4 @@
 {"ts":"2026-06-26T11:43:36Z","event":"UserPromptSubmit","sid":"aec97b1c-a17a-4fe3-ba3f-a266cf176ede","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":"tools-sso","source":null,"reason":null}
 {"ts":"2026-06-26T11:55:14Z","event":"SessionStart","sid":"b10a995a-f48f-4d1b-a23e-08d9a121a7cd","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
 {"ts":"2026-06-26T11:55:45Z","event":"UserPromptSubmit","sid":"b10a995a-f48f-4d1b-a23e-08d9a121a7cd","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-26T12:22:19Z","event":"UserPromptSubmit","sid":"aec97b1c-a17a-4fe3-ba3f-a266cf176ede","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":"tools-sso","source":null,"reason":null}
