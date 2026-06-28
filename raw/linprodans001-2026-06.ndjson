@@ -696,3 +696,5 @@
 {"ts":"2026-06-27T22:18:09Z","event":"UserPromptSubmit","sid":"3b6be520-703e-4e63-b868-ccc91ad27784","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-27T22:25:48Z","event":"UserPromptSubmit","sid":"3b6be520-703e-4e63-b868-ccc91ad27784","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-27T22:53:26Z","event":"UserPromptSubmit","sid":"3b6be520-703e-4e63-b868-ccc91ad27784","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-27T23:08:48Z","event":"UserPromptSubmit","sid":"3b6be520-703e-4e63-b868-ccc91ad27784","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-27T23:19:28Z","event":"UserPromptSubmit","sid":"3b6be520-703e-4e63-b868-ccc91ad27784","host":"linprodans001","cwd":"/home/cgarrett/pueo/pueo-mclean-infrastructure/docs","model":null,"title":null,"source":null,"reason":null}
