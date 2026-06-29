@@ -835,3 +835,5 @@
 {"ts":"2026-06-29T16:36:09Z","event":"UserPromptSubmit","sid":"07d25aae-b35d-48d1-b45b-345c7fb7cfd7","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-29T16:41:04Z","event":"UserPromptSubmit","sid":"07d25aae-b35d-48d1-b45b-345c7fb7cfd7","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-06-29T16:50:38Z","event":"UserPromptSubmit","sid":"07d25aae-b35d-48d1-b45b-345c7fb7cfd7","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-06-29T17:30:27Z","event":"SessionEnd","sid":"07d25aae-b35d-48d1-b45b-345c7fb7cfd7","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":null,"title":null,"source":null,"reason":"other"}
+{"ts":"2026-06-29T17:30:27Z","event":"SessionEnd","sid":"07d733df-987d-4790-85d3-05bfe73b80f5","host":"linprodans001","cwd":"/home/cgarrett/git/PueoBusinessSolutions/a3ct-triage-agent","model":null,"title":null,"source":null,"reason":"other"}
