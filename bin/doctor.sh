@@ -35,4 +35,21 @@ if [ -f "$HOME/.claude/settings.json" ] && command -v jq >/dev/null 2>&1; then
   echo "   hooks wired: $(jq -r '.hooks|keys|join(", ")' "$HOME/.claude/settings.json")"
 else echo "   [!] no ~/.claude/settings.json (or jq missing)"; fi
 if crontab -l 2>/dev/null | grep -q sync-push.sh; then echo "   sync-push cron: present"; else echo "   sync-push cron: [MISSING]"; fi
+
+# Stop-hook obligations forcing function: verify wired + script present. If MISSING, ALSO
+# self-report to the committed ledger so 'enforcement off on host X' is visible team-side.
+if [ -f "$HOME/.claude/settings.json" ] && command -v jq >/dev/null 2>&1; then
+  stopcmd="$(jq -r '(.hooks.Stop // [])[].hooks[]?.command // empty' "$HOME/.claude/settings.json" 2>/dev/null | grep session-obligations.sh | head -1)"
+  script="$repo/bin/session-obligations.sh"
+  if [ -n "$stopcmd" ] && [ -x "$script" ]; then
+    ver="$(grep -m1 '^WL_OBLIG_VERSION=' "$script" | cut -d'"' -f2)"
+    echo "   obligations Stop hook: wired (v${ver:-?}, mode=${PUEO_OBLIG_MODE:-remind})"
+  else
+    echo "   obligations Stop hook: [MISSING — run bin/install-linux.sh to enforce capture]"
+    host="$(hostname -s 2>/dev/null || hostname)"; f="$repo/obligations/${host}-$(date +%Y-%m).ndjson"
+    mkdir -p "$repo/obligations" 2>/dev/null || true
+    printf '{"ts":"%s","host":"%s","sid":"-","cwd":"-","obligation":"ENFORCEMENT","state":"off","source":"doctor"}\n' \
+      "$(date +%Y-%m-%dT%H:%M:%S%z)" "$host" >> "$f" 2>/dev/null || true
+  fi
+fi
 exit 0

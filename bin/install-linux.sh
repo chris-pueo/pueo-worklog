@@ -30,16 +30,30 @@ settings="$HOME/.claude/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
 cp "$settings" "$settings.bak.$(date -u +%Y%m%d%H%M%S)"
 
-hookcmd="bash $repo/bin/claude-worklog-hook.sh"
+wlcmd="bash $repo/bin/claude-worklog-hook.sh"
+# Stop hook runs with --noprofile --norc so a chatty ~/.bashrc can't corrupt the decision JSON.
+obcmd="bash --noprofile --norc $repo/bin/session-obligations.sh"
 tmp="$(mktemp)"
-jq --arg cmd "$hookcmd" '
-  .hooks = (.hooks // {}) |
-  .hooks.SessionStart     = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ] |
-  .hooks.SessionEnd       = [ { hooks: [ { type: "command", command: $cmd, timeout: 15 } ] } ] |
-  .hooks.UserPromptSubmit = [ { hooks: [ { type: "command", command: $cmd, timeout: 10 } ] } ]
+# APPEND-AND-DEDUPE (never clobber a teammate's existing hooks): for each event, strip only
+# OUR prior entry (matched by script basename), drop groups left empty, then append ours.
+jq --arg wl "$wlcmd" --arg wlkey "claude-worklog-hook.sh" \
+   --arg ob "$obcmd" --arg obkey "session-obligations.sh" '
+  def clean(event; key):
+    (.hooks[event] // [])
+    | map(.hooks |= map(select((.command // "") | contains(key) | not)))
+    | map(select((.hooks | length) > 0));
+  def upsert(event; key; cmd; to):
+    .hooks[event] = ( clean(event; key) + [ { hooks: [ { type:"command", command:cmd, timeout:to } ] } ] );
+  .hooks = (.hooks // {})
+  | upsert("SessionStart";     $wlkey; $wl; 15)
+  | upsert("SessionEnd";       $wlkey; $wl; 15)
+  | upsert("UserPromptSubmit"; $wlkey; $wl; 10)
+  | upsert("Stop";             $obkey; $ob; 30)
 ' "$settings" > "$tmp" && mv "$tmp" "$settings"
 echo "Updated $settings (backup kept). Hooks:"
 jq '.hooks | keys' "$settings"
+# NOTE: Stop-hook obligations default to PUEO_OBLIG_MODE=remind (soft, non-blocking soak).
+# Set PUEO_OBLIG_MODE=block in your shell/env to enforce; PUEO_OBLIG=0 disables entirely.
 
 # 3. Install cron push (idempotent: drop any prior line first)
 # Build an idiomatic schedule: whole-hour multiples -> "0 [*/h] * * *"; else "*/m * * * *".
@@ -55,7 +69,7 @@ echo "Installed cron ('$sched'):"
 crontab -l | grep sync-push.sh
 
 # 4. Install/refresh worklog instructions into ~/.claude/CLAUDE.md
-mkdir -p "$repo/narrative"
+mkdir -p "$repo/narrative" "$repo/obligations"
 bash "$repo/bin/apply-instructions.sh" && echo "Installed worklog instructions into ~/.claude/CLAUDE.md (managed block)."
 
 echo "DONE. New Claude Code sessions on $(hostname -s) log clock + follow the worklog ritual; cron pushes on '$sched'."

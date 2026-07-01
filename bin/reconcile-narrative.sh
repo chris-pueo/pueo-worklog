@@ -48,4 +48,12 @@ done
 echo
 echo "$total active session(s); $gaps still need a narrative line for $day."
 [ "$gaps" -gt 0 ] && echo "Write a line per gap in $narr ending with its [sid:<id>] tag, then re-run."
+
+# open ClickUp/Obsidian obligation debts for the month (from the Stop-hook ledger)
+oblig="$repo/obligations/${host}-${ym}.ndjson"
+if [ -f "$oblig" ]; then
+  echo
+  echo "-- open capture obligations ($ym) --"
+  bash "$repo/bin/obligations-doctor.sh" "$ym" 2>/dev/null | grep -E '^  ' || true
+fi
 exit 0

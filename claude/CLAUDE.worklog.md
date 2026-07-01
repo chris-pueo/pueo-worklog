@@ -28,6 +28,28 @@ real line; replace each PENDING stub with the real `CODE Xhr: …` line (keep it
 (OneDrive is not mounted on Linux, so we log to the repo instead of the OneDrive worklog;
 the hourly cron pushes it and Windows `/timecard` consolidates it into the Unanet rollups.)
 
+### Non-optional captures — the Stop-hook forcing function
+
+A `Stop` hook (`bin/session-obligations.sh`) enforces the three mandatory captures at the end
+of each substantive turn. It is deterministic (one jq pass over the transcript), fail-open,
+and subagent-safe. The three obligations:
+
+- **TIME** — *never blocks.* The hook auto-writes the `[sid:]` PENDING stub if the session did
+  work and has no real line yet. You still upgrade the stub to a real `CODE Xhr: … [sid:]`
+  line (that's the ritual above); the stub is just the guaranteed floor so nothing is lost.
+- **CLICKUP** — if the session did task-worthy project work and no ClickUp update is detected,
+  the hook blocks once (in `block` mode). Fulfill it (update the task, assigned to yourself),
+  **or** write `NO-CLICKUP: <one-line reason>` in your reply if it genuinely isn't warranted.
+- **OBSIDIAN** — if a KM/docs artifact was warranted (new `.md`, a `decisions.md`/`changelog.md`/
+  ADR edit, or a `docs/`|`runbooks/` path) and no vault write is detected, the hook blocks once.
+  Fulfill it, **or** write `NO-KM: <one-line reason>`.
+
+Escape valves (honor system): `PUEO_OBLIG_MODE=block|remind` (default **remind** — soft
+reminder, no block — until the team flips it to `block`); `PUEO_OBLIG=0` disables all;
+`PUEO_OBLIG_CLICKUP=0` / `PUEO_OBLIG_KM=0` disable one; a `.no-obligations` file in a repo
+opts that repo out. View/clear debts with `bash ~/git/pueo-worklog/bin/obligations-doctor.sh`
+(unmet ClickUp/Obsidian obligations are recorded to a pushed ledger, never silently lost).
+
 ### Charge codes (default = Technology_MGMT)
 | Abbrev | Unanet project | Books to |
 |---|---|---|

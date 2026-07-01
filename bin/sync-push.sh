@@ -15,7 +15,7 @@ git pull --rebase --autostash --quiet 2>/dev/null || true
 # refresh the worklog instructions in ~/.claude/CLAUDE.md from the (just-pulled) repo
 bash "$repo/bin/apply-instructions.sh" 2>/dev/null || true
 
-git add raw/ narrative/ 2>/dev/null || true
+git add raw/ narrative/ obligations/ 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
   git -c user.name='Chris Garrett' -c user.email='chris@pueo.com' \

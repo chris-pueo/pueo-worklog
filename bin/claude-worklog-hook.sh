@@ -11,12 +11,12 @@
 # (## YYYY-MM-DD) so /timecard joins clock<->narrative on the SAME day/month key. (Changed
 # from UTC 2026-07-01 — UTC vs local split evening work across different day/month buckets.)
 #
-# SessionEnd GAP BACKSTOP: the narrative line is a MANUAL end-of-session step, so a session
-# that ends via /clear, context exhaustion or a closed terminal loses its billable
-# description+charge-code (the clock survives, the narrative does not). On SessionEnd, if this
-# sid was never described — a real narrative line carries an [sid:<id>] tag — and it had real
-# activity, we append a PENDING stub under today's heading so the gap is VISIBLE to /timecard
-# and to bin/reconcile-narrative.sh instead of silently vanishing.
+# SessionEnd TIME FLOOR: the narrative line is a MANUAL end-of-session step; a session that
+# ends via /clear, context exhaustion or a closed terminal loses its billable description
+# (the clock survives, the narrative does not). On SessionEnd we call wl_ensure_time_stub to
+# auto-write a PENDING [sid:] stub if the session had activity and was never described — so
+# the gap is VISIBLE (reconcile-narrative.sh) instead of silently lost. The Stop-hook forcing
+# function (session-obligations.sh) handles the conditional ClickUp/Obsidian obligations.
 #
 # stdout-silent (a UserPromptSubmit hook's stdout is injected into the model context on
 # exit 0 — this writes ONLY to the ndjson/narrative). .prompt is never read (no prompt text logged).
@@ -27,15 +27,16 @@
   payload="$(cat)"
   [ -z "$payload" ] && exit 0
 
-  repo="$HOME/git/pueo-worklog"
+  repo="${PUEO_WORKLOG_REPO:-$HOME/git/pueo-worklog}"
+  # shellcheck source=lib-worklog.sh
+  [ -f "$repo/bin/lib-worklog.sh" ] && . "$repo/bin/lib-worklog.sh" 2>/dev/null || true
+
   raw_dir="$repo/raw"
-  narr_dir="$repo/narrative"
-  if [ ! -d "$raw_dir" ]; then raw_dir="$HOME/.claude/worklog"; narr_dir="$raw_dir"; fi
+  if [ ! -d "$raw_dir" ]; then raw_dir="$HOME/.claude/worklog"; fi
   mkdir -p "$raw_dir" 2>/dev/null || true
 
   host="$(hostname -s 2>/dev/null || hostname 2>/dev/null || echo unknown)"
   now="$(date +%Y-%m-%dT%H:%M:%S%z)"   # LOCAL time + offset (see header)
-  ymd="$(date +%Y-%m-%d)"              # LOCAL date — matches the narrative heading
   ym="$(date +%Y-%m)"                  # LOCAL month — matches the narrative file
   file="$raw_dir/${host}-${ym}.ndjson"
 
@@ -54,29 +55,12 @@
     printf '{"ts":"%s","event":"CAPTURE_ERROR_NO_JQ","host":"%s"}\n' "$now" "$host" >> "$file" 2>/dev/null || true
   fi
 
-  # --- SessionEnd narrative-gap backstop -------------------------------------------------
+  # --- SessionEnd TIME floor (auto-stub if undescribed) ----------------------------------
   if [ "$event" = "SessionEnd" ] && [ -n "$sid" ] && command -v jq >/dev/null 2>&1; then
-    narr="$narr_dir/${host}-${ym}.md"
-    # Already described (real line tagged [sid:...]) or already stubbed? then do nothing.
-    if ! { [ -f "$narr" ] && grep -qF "[sid:$sid]" "$narr" 2>/dev/null; }; then
-      prompts="$(grep -F "\"sid\":\"$sid\"" "$file" 2>/dev/null | grep -cF '"event":"UserPromptSubmit"')"
-      if [ "${prompts:-0}" -ge 1 ]; then
-        span_ts="$(grep -F "\"sid\":\"$sid\"" "$file" 2>/dev/null | jq -r '.ts' 2>/dev/null | sort)"
-        first="$(printf '%s\n' "$span_ts" | head -1)"
-        last="$(printf '%s\n' "$span_ts" | tail -1)"
-        base="$(basename "${cwd:-unknown}")"
-        stub="Technology_MGMT ?hr: [PENDING — narrative not written this session; reconcile] cwd=${base} prompts=${prompts} span=${first}..${last} [sid:$sid]"
-        (
-          exec 8>"$narr.lock" 2>/dev/null
-          command -v flock >/dev/null 2>&1 && flock -w 5 8 2>/dev/null
-          touch "$narr" 2>/dev/null
-          # never glue onto a file that doesn't end in a newline (append-safe)
-          if [ -s "$narr" ] && [ "$(tail -c1 "$narr" 2>/dev/null | wc -l)" -eq 0 ]; then printf '\n' >> "$narr"; fi
-          last_head="$(grep '^## ' "$narr" 2>/dev/null | tail -1)"
-          [ "$last_head" = "## $ymd" ] || printf '\n## %s\n' "$ymd" >> "$narr"
-          printf '%s\n' "$stub" >> "$narr"
-        ) 2>/dev/null || true
-      fi
+    if type wl_ensure_time_stub >/dev/null 2>&1; then
+      # only stub sessions that actually did something (>=1 prompt this month for the sid)
+      _p="$(grep -F "\"sid\":\"$sid\"" "$file" 2>/dev/null | grep -cF '"event":"UserPromptSubmit"')"
+      [ "${_p:-0}" -ge 1 ] && wl_ensure_time_stub "$sid" "$cwd"
     fi
   fi
 } 2>/dev/null || true

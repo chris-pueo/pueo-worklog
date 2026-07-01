@@ -9,3 +9,7 @@ Desktop.ini
 
 # per-file narrative append lock (created by bin/claude-worklog-hook.sh SessionEnd backstop)
 narrative/*.lock
+
+# obligation-ledger append lock (created by bin/session-obligations.sh). The .ndjson ledger
+# itself IS tracked + pushed (sync-push.sh stages obligations/); only the lock is ignored.
+obligations/*.lock
