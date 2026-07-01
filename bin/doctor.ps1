@@ -47,4 +47,36 @@ if (Test-Path $sf) {
 } else { Write-Output "   [!] no ~/.claude/settings.json" }
 $task = Get-ScheduledTask -TaskName 'ClaudeWorklogPulse' -ErrorAction SilentlyContinue
 Write-Output ("   ClaudeWorklogPulse task: {0}" -f $(if ($task) { $task.State } else { '[NOT REGISTERED]' }))
+
+# Stop-hook obligations forcing function: verify wired + script present. If MISSING, ALSO
+# self-report to the committed ledger so 'enforcement off on host X' is visible team-side.
+if (Test-Path $sf) {
+    $stopcmd = $null
+    try {
+        $stopHooks = (Get-Content $sf -Raw | ConvertFrom-Json).hooks.Stop
+        foreach ($grp in @($stopHooks)) {
+            foreach ($hk in @($grp.hooks)) {
+                if ($hk.command -and ($hk.command -match 'session-obligations\.ps1')) { $stopcmd = $hk.command; break }
+            }
+            if ($stopcmd) { break }
+        }
+    } catch { }
+    $script = Join-Path $repo 'bin\session-obligations.ps1'
+    if ($stopcmd -and (Test-Path $script)) {
+        $ver = ''
+        $vm = Select-String -Path $script -Pattern '^\$?WL_OBLIG_VERSION\s*=' -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($vm) { $m = [regex]::Match($vm.Line, '"([^"]+)"'); if ($m.Success) { $ver = $m.Groups[1].Value } }
+        $mode = if ($env:PUEO_OBLIG_MODE) { $env:PUEO_OBLIG_MODE } else { 'remind' }
+        Write-Output ("   obligations Stop hook: wired (v{0}, mode={1})" -f $(if ($ver) { $ver } else { '?' }), $mode)
+    } else {
+        Write-Output "   obligations Stop hook: [MISSING - run bin\install-windows.ps1 to enforce capture]"
+        $obDir = Join-Path $repo 'obligations'
+        if (-not (Test-Path $obDir)) { New-Item -ItemType Directory -Force -Path $obDir | Out-Null }
+        $of  = Join-Path $obDir ("{0}-{1}.ndjson" -f $env:COMPUTERNAME, (Get-Date).ToString('yyyy-MM'))
+        $now = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
+        $rec = [ordered]@{ ts = $now; host = $env:COMPUTERNAME; sid = '-'; cwd = '-'; obligation = 'ENFORCEMENT'; state = 'off'; source = 'doctor' }
+        $enc = New-Object System.Text.UTF8Encoding $false
+        try { [System.IO.File]::AppendAllText($of, ($rec | ConvertTo-Json -Compress) + "`n", $enc) } catch { }
+    }
+}
 exit 0

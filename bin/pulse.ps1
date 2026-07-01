@@ -17,8 +17,10 @@ try {
     Set-Location $repo
 
     # --- sync: pull others, push ours, bounded retry on non-fast-forward ---
+    # Stage raw/ (clock ndjson) AND obligations/ (unmet ClickUp/Obsidian/TIME debt ledger).
+    # NOT narrative/ — on Windows the narrative lives in OneDrive (Claude\timekeeping\), not the repo.
     git pull --rebase --autostash --quiet 2>$null
-    git add raw/ 2>$null | Out-Null
+    git add raw/ obligations/ 2>$null | Out-Null
     if (git diff --cached --name-only 2>$null) {
         $msg = "pulse: {0} clock sync {1}" -f $env:COMPUTERNAME, (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mmZ')
         git -c user.name='Chris Garrett' -c user.email='chris@pueo.com' commit -m $msg --quiet 2>$null
