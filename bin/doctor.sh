@@ -4,7 +4,7 @@
 # UserPromptSubmit stream = heartbeat not enabled), push age; plus this box's hook wiring +
 # sync cron. Freshness derived from MAX raw ts (format-independent), in UTC. Requires jq. exit 0.
 repo="$HOME/git/pueo-worklog"
-ym="$(date -u +%Y-%m)"
+ym="$(date +%Y-%m)"        # LOCAL month — the hook writes local-dated files (matches narrative)
 now=$(date -u +%s)
 echo "# worklog doctor - $(date -u +%Y-%m-%dT%H:%MZ) (UTC)"
 

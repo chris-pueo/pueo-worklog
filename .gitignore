@@ -6,3 +6,6 @@ Desktop.ini
 
 # sync lock (created by bin/sync-push.sh)
 .sync.lock
+
+# per-file narrative append lock (created by bin/claude-worklog-hook.sh SessionEnd backstop)
+narrative/*.lock

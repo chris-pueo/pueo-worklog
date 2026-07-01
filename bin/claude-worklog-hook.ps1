@@ -7,13 +7,20 @@
 # injected into the model context on exit 0 — writes only to the ndjson); .prompt never logged.
 # Fail-safe: swallows all errors, always exits 0. See README.md / INSTALL-LINUX.md.
 # Keep this copy in sync with the installed one if you edit either.
+#
+# TIME BASIS = LOCAL (matches the LOCAL-dated narrative heading so /timecard joins clock<->
+# narrative on the same day/month key; changed from UTC 2026-07-01 to stop evening work
+# splitting across day/month buckets). NOTE: the Linux .sh also drops a SessionEnd PENDING
+# stub into the repo narrative when a session ends undescribed — NOT ported here because the
+# Windows narrative lives in OneDrive (Claude\timekeeping\), not the repo. Wire that path +
+# /timecard reconcile before adding the Windows stub backstop (follow-up).
 
 try {
     $raw = [Console]::In.ReadToEnd()
     if ([string]::IsNullOrWhiteSpace($raw)) { exit 0 }
 
     $p   = $raw | ConvertFrom-Json
-    $now = (Get-Date).ToUniversalTime()
+    $now = Get-Date                                  # LOCAL time (see header)
 
     $repoRaw = Join-Path $env:USERPROFILE 'git\pueo-worklog\raw'
     $dir = if (Test-Path $repoRaw) { $repoRaw } else { Join-Path $env:USERPROFILE '.claude\worklog' }
@@ -23,7 +30,7 @@ try {
     $file  = Join-Path $dir ("{0}-{1}.ndjson" -f $host_, $now.ToString('yyyy-MM'))
 
     $rec = [ordered]@{
-        ts = $now.ToString("yyyy-MM-ddTHH:mm:ssZ"); event = $p.hook_event_name; sid = $p.session_id
+        ts = $now.ToString("yyyy-MM-ddTHH:mm:sszzz"); event = $p.hook_event_name; sid = $p.session_id
         host = $host_; cwd = $p.cwd; model = $p.model; title = $p.session_title
         source = $p.source; reason = $p.reason
     }
