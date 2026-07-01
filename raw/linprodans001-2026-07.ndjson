@@ -19,3 +19,4 @@
 {"ts":"2026-07-01T02:35:07Z","event":"SessionStart","sid":"5f4eed3f-2be2-4507-93cd-b8fdc81674f3","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":"claude-opus-4-8[1m]","title":null,"source":"startup","reason":null}
 {"ts":"2026-07-01T02:35:34Z","event":"UserPromptSubmit","sid":"5f4eed3f-2be2-4507-93cd-b8fdc81674f3","host":"linprodans001","cwd":"/home/cgarrett/git/chris-pueo/tesiems-iac","model":null,"title":null,"source":null,"reason":null}
 {"ts":"2026-07-01T02:42:45Z","event":"UserPromptSubmit","sid":"7484e726-fd1e-4280-a692-07a318592c6f","host":"linprodans001","cwd":"/home/cgarrett/git/PueoBusinessSolutions/a3ct-triage-agent","model":null,"title":null,"source":null,"reason":null}
+{"ts":"2026-07-01T00:11:30-0400","event":"SessionEnd","sid":"7484e726-fd1e-4280-a692-07a318592c6f","host":"linprodans001","cwd":"/home/cgarrett/git/PueoBusinessSolutions/a3ct-triage-agent","model":null,"title":null,"source":null,"reason":"other"}
