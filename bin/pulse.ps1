@@ -20,10 +20,16 @@ try {
     # Stage raw/ (clock ndjson) AND obligations/ (unmet ClickUp/Obsidian/TIME debt ledger).
     # NOT narrative/ — on Windows the narrative lives in OneDrive (Claude\timekeeping\), not the repo.
     git pull --rebase --autostash --quiet 2>$null
-    git add raw/ obligations/ 2>$null | Out-Null
+    # ensure obligations/ exists, then stage each pathspec INDEPENDENTLY (fail-soft: a missing
+    # dir must never block the raw/ clock push)
+    New-Item -ItemType Directory -Force -Path (Join-Path $repo 'obligations') | Out-Null
+    git add raw/ 2>$null | Out-Null
+    git add obligations/ 2>$null | Out-Null
     if (git diff --cached --name-only 2>$null) {
         $msg = "pulse: {0} clock sync {1}" -f $env:COMPUTERNAME, (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mmZ')
-        git -c user.name='Chris Garrett' -c user.email='chris@pueo.com' commit -m $msg --quiet 2>$null
+        # commit under THIS box's own git identity (was hardcoded Chris Garrett — wrong for the
+        # team; each teammate sets git config user.name/user.email, installer warns if unset)
+        git commit -m $msg --quiet 2>$null
         for ($i = 0; $i -lt 3; $i++) {
             git push --quiet 2>$null
             if ($LASTEXITCODE -eq 0) { break }
